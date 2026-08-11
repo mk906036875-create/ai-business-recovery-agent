@@ -6,7 +6,8 @@ AI Lead Recovery CRM
 
 Velocity Agent is a modern AI-powered Lead Recovery CRM designed to help businesses identify valuable leads, prioritize follow-ups, and recover missed revenue through an intelligent sales pipeline.
 
-🔗 Live Demo: https://mk906036875-create.github.io/ai-business-recovery-agent/
+🔗 Live Demo:
+https://mk906036875-create.github.io/ai-business-recovery-agent/
 
 ---
 
@@ -187,7 +188,8 @@ Future
 
 Experience the current Version 5 interface:
 
-👉 https://mk906036875-create.github.io/ai-business-recovery-agent/
+🔗 Velocity Agent V5:
+https://mk906036875-create.github.io/ai-business-recovery-agent/
 
 ---
 
@@ -220,11 +222,26 @@ Capture → Prioritize → Follow Up → Recover → Grow
 
 ---
 
-👨‍💻 Project
+📌 Project Status
 
-Velocity Agent V5 — AI Lead Recovery CRM
+Version: V5
+Status: Live Demo
+Platform: GitHub Pages
+Type: AI CRM / Lead Recovery Automation
 
-Built as a modern AI/CRM product demonstration focused on lead recovery, customer intelligence, follow-up workflows, and revenue opportunities.
+---
+
+🚀 Vision
+
+Velocity Agent aims to help businesses recover lost opportunities by combining lead intelligence, prioritization, and automated follow-up workflows into one simple CRM experience.
+
+---
+
+👨‍💻 Built By
+
+Manish Tiwari
+
+AI Automation & Web Development Project
 
 ---
 
