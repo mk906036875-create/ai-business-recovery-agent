@@ -1,11 +1,11 @@
  <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>AI Business Recovery Agent</title>  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Velocity Agent | AI Business Recovery</title>  <link rel="stylesheet" href="style.css">
 </head><body><header class="header">
   <div>
-    <h1>AI Business Recovery Agent</h1>
-    <p>Recover lost leads with intelligent follow-ups.</p>
+    <h1>⚡ Velocity Agent</h1>
+    <p>AI-powered lead recovery and intelligent customer follow-ups.</p>
   </div>
 </header><main class="container">  <section class="stats"><div class="card">
   <span>Lost Leads</span>
@@ -28,7 +28,7 @@
 </div>
 
   </section>  <section class="panel"><div class="panel-header">
-  <h2>Lead Recovery Center</h2>
+  <h2>AI Lead Recovery Center</h2>
   <span class="status">● AI Active</span>
 </div>
 
@@ -37,14 +37,40 @@
 
   <div class="lead-info">
 
-    <h3>Customer Message</h3>
+    <h3>Customer Details</h3>
+
+    <label>Customer Name</label>
+
+    <input
+      type="text"
+      id="customerName"
+      value="Atharv"
+      placeholder="Enter customer name"
+    >
+
+    <br><br>
+
+    <label>Business / Brand</label>
+
+    <input
+      type="text"
+      id="businessName"
+      value="Velocity Agent"
+      placeholder="Enter business name"
+    >
+
+    <br><br>
+
+    <label>Customer Message</label>
 
     <textarea
       id="customerMessage"
-      placeholder="Example: Price is too high, I will think about it..."
-      rows="5"></textarea>
+      rows="5"
+      placeholder="Example: Price is a little high. I'll think about it."
+    >Price is a little high. I'll think about it.</textarea>
 
   </div>
+
 
   <button onclick="analyzeCustomer()">
     🤖 Analyze Lead
@@ -54,7 +80,10 @@
 
 
 <div id="aiResult" class="ai-result">
-  Enter a customer message and click Analyze Lead.
+
+  Enter customer information and click
+  <strong>Analyze Lead</strong>.
+
 </div>
 
   </section>  <section class="panel"><h2>Recovery Pipeline</h2>
@@ -78,11 +107,17 @@
 
 </div>
 
-  </section></main><footer>
-  <p>© 2026 AI Business Recovery Agent</p>
-</footer><script>
+  </section></main><footer>  <p>
+    © 2026 Velocity Agent | AI Business Recovery Platform
+  </p></footer><script>
 
 function analyzeCustomer() {
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const business =
+    document.getElementById("businessName").value.trim();
 
   const message =
     document.getElementById("customerMessage").value.trim();
@@ -91,10 +126,10 @@ function analyzeCustomer() {
     document.getElementById("aiResult");
 
 
-  if (!message) {
+  if (!name || !business || !message) {
 
     result.innerHTML = `
-      <strong>⚠️ Please enter a customer message.</strong>
+      <strong>⚠️ Please complete all fields.</strong>
     `;
 
     return;
@@ -103,14 +138,17 @@ function analyzeCustomer() {
 
   const text = message.toLowerCase();
 
+
   let status = "WARM";
   let score = 65;
   let issue = "Customer needs more information.";
   let action = "Send a personalized follow-up.";
 
   let followUp =
-    "Hi 👋 Thanks for your interest. We'd be happy to help you find the best option for your needs. Would you like more information?";
+    `Hi ${name} 👋, thanks for your interest in ${business}. We'd be happy to help you find the best option for your needs. Would you like more information?`;
 
+
+  // HOT LEAD
 
   if (
     text.includes("buy") ||
@@ -122,13 +160,20 @@ function analyzeCustomer() {
 
     status = "HOT";
     score = 92;
-    issue = "Strong buying intent.";
-    action = "Contact the customer immediately.";
+
+    issue =
+      "Strong buying intent detected.";
+
+    action =
+      "Contact the customer immediately.";
 
     followUp =
-      "Hi 👋 Thanks for your interest! We're ready to help you get started. Would you like us to confirm the next available option for you?";
+      `Hi ${name} 👋, thanks for your interest in ${business}! We're ready to help you get started. Would you like us to confirm the next available option for you?`;
+
   }
 
+
+  // PRICE CONCERN
 
   else if (
     text.includes("price") ||
@@ -139,30 +184,45 @@ function analyzeCustomer() {
 
     status = "WARM";
     score = 72;
-    issue = "Price or budget concern.";
-    action = "Send a value-focused offer within 48 hours.";
+
+    issue =
+      "Price or budget concern detected.";
+
+    action =
+      "Send a value-focused offer and follow up within 48 hours.";
 
     followUp =
-      "Hi 👋 We completely understand that pricing is important. We'd love to help you find the best value for your budget. Would you like us to share a suitable offer?";
+      `Hi ${name} 👋, we completely understand that pricing is important. ${business} would be happy to help you find the best value for your budget. Would you like us to share a suitable offer?`;
+
   }
 
+
+  // DELAYED DECISION
 
   else if (
     text.includes("later") ||
     text.includes("think") ||
-    text.includes("next month") ||
-    text.includes("tomorrow")
+    text.includes("tomorrow") ||
+    text.includes("next week") ||
+    text.includes("next month")
   ) {
 
     status = "WARM";
     score = 58;
-    issue = "Customer is delaying the decision.";
-    action = "Schedule a future follow-up.";
+
+    issue =
+      "Customer is delaying the decision.";
+
+    action =
+      "Schedule a future follow-up.";
 
     followUp =
-      "Hi 👋 Just checking in regarding your earlier enquiry. If the timing is better now, we'd be happy to help. Would you like to continue?";
+      `Hi ${name} 👋, just checking in regarding your earlier enquiry with ${business}. If the timing is better now, we'd be happy to help. Would you like to continue?`;
+
   }
 
+
+  // COLD LEAD
 
   else if (
     text.includes("not interested") ||
@@ -171,17 +231,32 @@ function analyzeCustomer() {
 
     status = "COLD";
     score = 20;
-    issue = "Low buying intent.";
-    action = "Reduce follow-ups and keep the lead for future campaigns.";
+
+    issue =
+      "Low buying intent detected.";
+
+    action =
+      "Reduce follow-ups and keep the lead for future campaigns.";
 
     followUp =
-      "Thank you for considering us. If your needs change in the future, we'll be happy to help.";
+      `Thank you for considering ${business}, ${name}. If your needs change in the future, we'll be happy to help.`;
+
   }
 
 
   result.innerHTML = `
 
-    <strong>🤖 AI Lead Analysis</strong>
+    <strong>🤖 Velocity Agent — AI Lead Analysis</strong>
+
+    <br><br>
+
+    <strong>Customer:</strong>
+    ${name}
+
+    <br>
+
+    <strong>Business:</strong>
+    ${business}
 
     <br><br>
 
@@ -200,7 +275,7 @@ function analyzeCustomer() {
 
     <br><br>
 
-    <strong>✍️ Personalized Follow-up</strong>
+    <strong>✍️ Personalized AI Follow-up</strong>
 
     <br><br>
 
@@ -216,4 +291,4 @@ function analyzeCustomer() {
 }
 
 </script></body>
- </html>
+  </html>
