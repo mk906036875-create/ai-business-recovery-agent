@@ -14,6 +14,8 @@
     <br>
     <strong>Recovery Score:</strong> 72%
     <br>
+    <strong>Detected Issue:</strong> Price Concern
+    <br>
     <strong>Recommended Action:</strong>
     Send a personalized offer and follow up within 48 hours.
   `;
