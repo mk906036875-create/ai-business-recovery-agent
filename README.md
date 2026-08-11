@@ -13,7 +13,7 @@ https://mk906036875-create.github.io/ai-business-recovery-agent/
 
 ## 📸 Dashboard Preview
 
-![Velocity Agent V5 Dashboard](velocity-agent-dashboard.png)
+![Velocity Agent V5 Dashboard](image%20(1).jpg)
 
 > Version 5 AI Lead Recovery CRM dashboard preview.
 
