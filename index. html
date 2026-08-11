@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI Business Recovery Agent</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div>
+      <h1>AI Business Recovery Agent</h1>
+      <p>Recover lost leads with intelligent follow-ups.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="stats">
+
+      <div class="card">
+        <span>Lost Leads</span>
+        <strong id="lostLeads">24</strong>
+      </div>
+
+      <div class="card">
+        <span>Recovered</span>
+        <strong id="recovered">8</strong>
+      </div>
+
+      <div class="card">
+        <span>Potential Revenue</span>
+        <strong>$1,200</strong>
+      </div>
+
+      <div class="card">
+        <span>Hot Leads</span>
+        <strong>5</strong>
+      </div>
+
+    </section>
+
+
+    <section class="panel">
+
+      <div class="panel-header">
+        <h2>Lead Recovery Center</h2>
+        <span class="status">● AI Active</span>
+      </div>
+
+
+      <div class="lead">
+
+        <div class="lead-info">
+          <h3>Rahul Sharma</h3>
+
+          <p>
+            "Price is a little high. I'll think about it."
+          </p>
+
+          <div class="tags">
+            <span class="warm">WARM</span>
+            <span>Price Concern</span>
+          </div>
+        </div>
+
+        <button onclick="generateFollowUp()">
+          Generate AI Follow-up
+        </button>
+
+      </div>
+
+
+      <div id="aiResult" class="ai-result">
+        AI follow-up will appear here.
+      </div>
+
+    </section>
+
+
+    <section class="panel">
+
+      <h2>Recovery Pipeline</h2>
+
+      <div class="pipeline">
+
+        <div>
+          <span>New Leads</span>
+          <strong>12</strong>
+        </div>
+
+        <div>
+          <span>Follow-up</span>
+          <strong>11</strong>
+        </div>
+
+        <div>
+          <span>Recovered</span>
+          <strong>8</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <p>© 2026 AI Business Recovery Agent</p>
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+  </html>
