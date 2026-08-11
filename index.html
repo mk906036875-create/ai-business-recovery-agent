@@ -1,161 +1,219 @@
- <!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AI Business Recovery Agent</title>
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<header class="header">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>AI Business Recovery Agent</title>  <link rel="stylesheet" href="style.css">
+</head><body><header class="header">
   <div>
     <h1>AI Business Recovery Agent</h1>
     <p>Recover lost leads with intelligent follow-ups.</p>
   </div>
-</header>
+</header><main class="container">  <section class="stats"><div class="card">
+  <span>Lost Leads</span>
+  <strong>24</strong>
+</div>
 
-<main class="container">
+<div class="card">
+  <span>Recovered</span>
+  <strong>8</strong>
+</div>
 
-  <section class="stats">
+<div class="card">
+  <span>Potential Revenue</span>
+  <strong>$1,200</strong>
+</div>
 
-    <div class="card">
-      <span>Lost Leads</span>
-      <strong>24</strong>
-    </div>
+<div class="card">
+  <span>Hot Leads</span>
+  <strong>5</strong>
+</div>
 
-    <div class="card">
-      <span>Recovered</span>
-      <strong>8</strong>
-    </div>
+  </section>  <section class="panel"><div class="panel-header">
+  <h2>Lead Recovery Center</h2>
+  <span class="status">● AI Active</span>
+</div>
 
-    <div class="card">
-      <span>Potential Revenue</span>
-      <strong>$1,200</strong>
-    </div>
 
-    <div class="card">
-      <span>Hot Leads</span>
-      <strong>5</strong>
-    </div>
+<div class="lead">
 
-  </section>
+  <div class="lead-info">
 
-  <section class="panel">
+    <h3>Customer Message</h3>
 
-    <div class="panel-header">
-      <h2>Lead Recovery Center</h2>
-      <span class="status">● AI Active</span>
-    </div>
+    <textarea
+      id="customerMessage"
+      placeholder="Example: Price is too high, I will think about it..."
+      rows="5"></textarea>
 
-    <div class="lead">
+  </div>
 
-      <div class="lead-info">
+  <button onclick="analyzeCustomer()">
+    🤖 Analyze Lead
+  </button>
 
-        <h3>Rahul Sharma</h3>
+</div>
 
-        <p>
-          "Price is a little high. I'll think about it."
-        </p>
 
-        <div class="tags">
-          <span class="warm">WARM</span>
-          <span>Price Concern</span>
-        </div>
+<div id="aiResult" class="ai-result">
+  Enter a customer message and click Analyze Lead.
+</div>
 
-      </div>
+  </section>  <section class="panel"><h2>Recovery Pipeline</h2>
 
-      <button onclick="generateFollowUp()">
-        Generate AI Follow-up
-      </button>
+<div class="pipeline">
 
-    </div>
+  <div>
+    <span>New Leads</span>
+    <strong>12</strong>
+  </div>
 
-    <div id="aiResult" class="ai-result">
-      AI follow-up will appear here.
-    </div>
+  <div>
+    <span>Follow-up</span>
+    <strong>11</strong>
+  </div>
 
-  </section>
+  <div>
+    <span>Recovered</span>
+    <strong>8</strong>
+  </div>
 
-  <section class="panel">
+</div>
 
-    <h2>Recovery Pipeline</h2>
-
-    <div class="pipeline">
-
-      <div>
-        <span>New Leads</span>
-        <strong>12</strong>
-      </div>
-
-      <div>
-        <span>Follow-up</span>
-        <strong>11</strong>
-      </div>
-
-      <div>
-        <span>Recovered</span>
-        <strong>8</strong>
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-<footer>
+  </section></main><footer>
   <p>© 2026 AI Business Recovery Agent</p>
-</footer>
+</footer><script>
+
+function analyzeCustomer() {
+
+  const message =
+    document.getElementById("customerMessage").value.trim();
+
+  const result =
+    document.getElementById("aiResult");
 
 
-<script>
+  if (!message) {
 
-function generateFollowUp() {
+    result.innerHTML = `
+      <strong>⚠️ Please enter a customer message.</strong>
+    `;
 
-  const result = document.getElementById("aiResult");
+    return;
+  }
+
+
+  const text = message.toLowerCase();
+
+  let status = "WARM";
+  let score = 65;
+  let issue = "Customer needs more information.";
+  let action = "Send a personalized follow-up.";
+
+  let followUp =
+    "Hi 👋 Thanks for your interest. We'd be happy to help you find the best option for your needs. Would you like more information?";
+
+
+  if (
+    text.includes("buy") ||
+    text.includes("book") ||
+    text.includes("today") ||
+    text.includes("now") ||
+    text.includes("ready")
+  ) {
+
+    status = "HOT";
+    score = 92;
+    issue = "Strong buying intent.";
+    action = "Contact the customer immediately.";
+
+    followUp =
+      "Hi 👋 Thanks for your interest! We're ready to help you get started. Would you like us to confirm the next available option for you?";
+  }
+
+
+  else if (
+    text.includes("price") ||
+    text.includes("expensive") ||
+    text.includes("cost") ||
+    text.includes("budget")
+  ) {
+
+    status = "WARM";
+    score = 72;
+    issue = "Price or budget concern.";
+    action = "Send a value-focused offer within 48 hours.";
+
+    followUp =
+      "Hi 👋 We completely understand that pricing is important. We'd love to help you find the best value for your budget. Would you like us to share a suitable offer?";
+  }
+
+
+  else if (
+    text.includes("later") ||
+    text.includes("think") ||
+    text.includes("next month") ||
+    text.includes("tomorrow")
+  ) {
+
+    status = "WARM";
+    score = 58;
+    issue = "Customer is delaying the decision.";
+    action = "Schedule a future follow-up.";
+
+    followUp =
+      "Hi 👋 Just checking in regarding your earlier enquiry. If the timing is better now, we'd be happy to help. Would you like to continue?";
+  }
+
+
+  else if (
+    text.includes("not interested") ||
+    text.includes("no thanks")
+  ) {
+
+    status = "COLD";
+    score = 20;
+    issue = "Low buying intent.";
+    action = "Reduce follow-ups and keep the lead for future campaigns.";
+
+    followUp =
+      "Thank you for considering us. If your needs change in the future, we'll be happy to help.";
+  }
+
 
   result.innerHTML = `
-  
-    <strong>🤖 AI Follow-up Generated</strong>
+
+    <strong>🤖 AI Lead Analysis</strong>
 
     <br><br>
 
-    Hi Rahul 👋
+    <strong>Lead Status:</strong>
+    ${status}
+
+    <br>
+
+    <strong>Recovery Score:</strong>
+    ${score}%
+
+    <br>
+
+    <strong>Detected Issue:</strong>
+    ${issue}
 
     <br><br>
 
-    We understand that pricing is important.
-    We'd be happy to help you find the best option
-    for your needs.
-
-    Would you like us to share a suitable offer?
+    <strong>✍️ Personalized Follow-up</strong>
 
     <br><br>
 
-    <strong>Lead Status:</strong> WARM
+    ${followUp}
 
-    <br>
+    <br><br>
 
-    <strong>Recovery Score:</strong> 72%
-
-    <br>
-
-    <strong>Detected Issue:</strong> Price Concern
-
-    <br>
-
-    <strong>Recommended Action:</strong>
-    Send a personalized offer and follow up within 48 hours.
+    <strong>🎯 Recommended Action:</strong>
+    ${action}
 
   `;
 
 }
 
-</script>
-
-</body>
-</html>
+</script></body>
+ </html>
