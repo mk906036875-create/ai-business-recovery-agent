@@ -1,7 +1,15 @@
- <!DOCTYPE html><html lang="en">
+ <!DOCTYPE html>
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Velocity Agent | AI CRM</title>  <link rel="stylesheet" href="style.css">  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Velocity Agent | AI CRM</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
     .crm-header {
       display: flex;
       justify-content: space-between;
@@ -26,6 +34,44 @@
     .filter-box button.active {
       background: #111827;
       color: white;
+    }
+
+    .add-lead-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .add-lead-form input,
+    .add-lead-form textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+    }
+
+    .add-lead-form textarea {
+      grid-column: span 2;
+      resize: vertical;
+    }
+
+    .add-lead-form button {
+      grid-column: span 2;
+      padding: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .success-message {
+      display: none;
+      padding: 11px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 14px;
     }
 
     .lead-row {
@@ -74,10 +120,7 @@
       color: #1d4ed8;
     }
 
-    .score {
-      font-weight: bold;
-    }
-
+    .score,
     .revenue {
       font-weight: bold;
     }
@@ -85,12 +128,28 @@
     .action-btn {
       padding: 9px 12px;
       font-size: 12px;
+      cursor: pointer;
     }
 
     .empty {
       text-align: center;
       padding: 30px;
       color: #6b7280;
+    }
+
+    .message-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      display: none;
+    }
+
+    .copy-btn {
+      margin-top: 12px;
+      padding: 9px 14px;
+      cursor: pointer;
     }
 
     @media (max-width: 800px) {
@@ -108,93 +167,230 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .add-lead-form {
+        grid-template-columns: 1fr;
+      }
+
+      .add-lead-form textarea,
+      .add-lead-form button {
+        grid-column: span 1;
+      }
     }
-  </style></head><body><header class="header">
+  </style>
+</head>
+
+
+<body>
+
+<header class="header">
+
   <div>
     <h1>⚡ Velocity Agent</h1>
-    <p>AI-powered lead recovery & customer intelligence platform.</p>
-  </div>
-</header><main class="container">  <section class="stats"><div class="card">
-  <span>Total Leads</span>
-  <strong id="totalLeads">6</strong>
-</div>
 
-<div class="card">
-  <span>Hot Leads</span>
-  <strong id="hotLeads">2</strong>
-</div>
-
-<div class="card">
-  <span>Warm Leads</span>
-  <strong id="warmLeads">2</strong>
-</div>
-
-<div class="card">
-  <span>Potential Revenue</span>
-  <strong id="revenue">$8,700</strong>
-</div>
-
-  </section>  <section class="panel"><div class="crm-header">
-
-  <div>
-    <h2>AI Lead Recovery CRM</h2>
-    <p>Prioritize customers who need follow-up.</p>
+    <p>
+      AI-powered lead recovery & customer intelligence platform.
+    </p>
   </div>
 
-  <span class="status">● AI Active</span>
-
-</div>
+</header>
 
 
-<div class="filter-box">
-
-  <button class="active" onclick="filterLeads('ALL', this)">
-    All
-  </button>
-
-  <button onclick="filterLeads('HOT', this)">
-    🔥 Hot
-  </button>
-
-  <button onclick="filterLeads('WARM', this)">
-    🟡 Warm
-  </button>
-
-  <button onclick="filterLeads('COLD', this)">
-    🔵 Cold
-  </button>
-
-</div>
+<main class="container">
 
 
-<div id="leadList"></div>
+  <!-- DASHBOARD STATS -->
 
-  </section>  <section class="panel"><h2>Recovery Pipeline</h2>
+  <section class="stats">
 
-<div class="pipeline">
+    <div class="card">
+      <span>Total Leads</span>
+      <strong id="totalLeads">0</strong>
+    </div>
 
-  <div>
-    <span>New Leads</span>
-    <strong>12</strong>
-  </div>
+    <div class="card">
+      <span>Hot Leads</span>
+      <strong id="hotLeads">0</strong>
+    </div>
 
-  <div>
-    <span>Follow-up</span>
-    <strong>11</strong>
-  </div>
+    <div class="card">
+      <span>Warm Leads</span>
+      <strong id="warmLeads">0</strong>
+    </div>
 
-  <div>
-    <span>Recovered</span>
-    <strong>8</strong>
-  </div>
+    <div class="card">
+      <span>Potential Revenue</span>
+      <strong id="revenue">$0</strong>
+    </div>
 
-</div>
+  </section>
 
-  </section></main><footer>
-  <p>© 2026 Velocity Agent | AI Business Recovery Platform</p>
-</footer><script>
 
-const leads = [
+  <!-- ADD LEAD -->
+
+  <section class="panel">
+
+    <div class="crm-header">
+
+      <div>
+        <h2>➕ Add New Lead</h2>
+
+        <p>
+          Add customer information and let Velocity Agent analyze the lead.
+        </p>
+      </div>
+
+      <span class="status">
+        ● AI Ready
+      </span>
+
+    </div>
+
+
+    <div class="add-lead-form">
+
+      <input
+        type="text"
+        id="newName"
+        placeholder="Customer Name"
+      >
+
+      <input
+        type="text"
+        id="newBusiness"
+        value="Velocity Agent"
+        placeholder="Business / Brand"
+      >
+
+      <input
+        type="number"
+        id="newRevenue"
+        placeholder="Potential Revenue ($)"
+      >
+
+      <textarea
+        id="newMessage"
+        rows="4"
+        placeholder="Customer message... Example: Price is high, I will think about it."
+      ></textarea>
+
+      <button onclick="addNewLead()">
+        🚀 Add Lead & Analyze
+      </button>
+
+    </div>
+
+
+    <div id="successMessage" class="success-message"></div>
+
+  </section>
+
+
+  <!-- CRM -->
+
+  <section class="panel">
+
+    <div class="crm-header">
+
+      <div>
+        <h2>AI Lead Recovery CRM</h2>
+
+        <p>
+          Prioritize customers who need follow-up.
+        </p>
+      </div>
+
+      <span class="status">
+        ● AI Active
+      </span>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filter-box">
+
+      <button
+        class="active"
+        onclick="filterLeads('ALL', this)">
+        All
+      </button>
+
+      <button onclick="filterLeads('HOT', this)">
+        🔥 Hot
+      </button>
+
+      <button onclick="filterLeads('WARM', this)">
+        🟡 Warm
+      </button>
+
+      <button onclick="filterLeads('COLD', this)">
+        🔵 Cold
+      </button>
+
+    </div>
+
+
+    <div id="leadList"></div>
+
+
+    <!-- FOLLOW-UP RESULT -->
+
+    <div id="messageBox" class="message-box"></div>
+
+  </section>
+
+
+  <!-- PIPELINE -->
+
+  <section class="panel">
+
+    <h2>Recovery Pipeline</h2>
+
+    <div class="pipeline">
+
+      <div>
+        <span>New Leads</span>
+        <strong id="newLeads">0</strong>
+      </div>
+
+      <div>
+        <span>Follow-up</span>
+        <strong id="followUpLeads">0</strong>
+      </div>
+
+      <div>
+        <span>Recovered</span>
+        <strong id="recoveredLeads">8</strong>
+      </div>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+<footer>
+
+  <p>
+    © 2026 Velocity Agent | AI Business Recovery Platform
+  </p>
+
+</footer>
+
+
+
+<script>
+
+
+/* =================================
+   DEFAULT LEADS
+================================= */
+
+let leads = [
 
   {
     name: "Atharv",
@@ -247,10 +443,285 @@ const leads = [
 ];
 
 
+
+/* =================================
+   ANALYZE CUSTOMER MESSAGE
+================================= */
+
+function analyzeMessage(message) {
+
+  const text = message.toLowerCase();
+
+  let status = "WARM";
+  let score = 65;
+
+
+  if (
+    text.includes("buy") ||
+    text.includes("book") ||
+    text.includes("today") ||
+    text.includes("now") ||
+    text.includes("ready") ||
+    text.includes("interested")
+  ) {
+
+    status = "HOT";
+    score = 92;
+
+  }
+
+
+  else if (
+    text.includes("not interested") ||
+    text.includes("no thanks") ||
+    text.includes("cancel") ||
+    text.includes("stop")
+  ) {
+
+    status = "COLD";
+    score = 20;
+
+  }
+
+
+  else if (
+    text.includes("price") ||
+    text.includes("expensive") ||
+    text.includes("cost") ||
+    text.includes("budget")
+  ) {
+
+    status = "WARM";
+    score = 72;
+
+  }
+
+
+  else if (
+    text.includes("later") ||
+    text.includes("think") ||
+    text.includes("tomorrow") ||
+    text.includes("next week") ||
+    text.includes("next month")
+  ) {
+
+    status = "WARM";
+    score = 58;
+
+  }
+
+
+  return {
+    status: status,
+    score: score
+  };
+
+}
+
+
+
+/* =================================
+   ADD NEW LEAD
+================================= */
+
+function addNewLead() {
+
+  const name =
+    document.getElementById("newName").value.trim();
+
+  const business =
+    document.getElementById("newBusiness").value.trim();
+
+  const revenue =
+    Number(
+      document.getElementById("newRevenue").value
+    ) || 0;
+
+  const message =
+    document.getElementById("newMessage").value.trim();
+
+  const success =
+    document.getElementById("successMessage");
+
+
+  if (!name || !business || !message) {
+
+    success.style.display = "block";
+
+    success.style.background = "#fee2e2";
+
+    success.style.color = "#991b1b";
+
+    success.innerHTML =
+      "⚠️ Name, Business और Customer Message भरना जरूरी है।";
+
+    return;
+
+  }
+
+
+  const analysis =
+    analyzeMessage(message);
+
+
+  leads.unshift({
+
+    name: name,
+
+    business: business,
+
+    status: analysis.status,
+
+    score: analysis.score,
+
+    revenue: revenue
+
+  });
+
+
+  saveLeads();
+
+  updateStats();
+
+  renderLeads(leads);
+
+
+  success.style.display = "block";
+
+  success.style.background = "#dcfce7";
+
+  success.style.color = "#166534";
+
+  success.innerHTML =
+    `✅ ${name} successfully added as ${analysis.status} lead.`;
+
+
+  document.getElementById("newName").value = "";
+
+  document.getElementById("newRevenue").value = "";
+
+  document.getElementById("newMessage").value = "";
+
+}
+
+
+
+/* =================================
+   SAVE LEADS
+================================= */
+
+function saveLeads() {
+
+  localStorage.setItem(
+    "velocityAgentLeads",
+    JSON.stringify(leads)
+  );
+
+}
+
+
+
+/* =================================
+   LOAD LEADS
+================================= */
+
+function loadLeads() {
+
+  const saved =
+    localStorage.getItem("velocityAgentLeads");
+
+
+  if (saved) {
+
+    try {
+
+      leads =
+        JSON.parse(saved);
+
+    }
+
+    catch (error) {
+
+      console.log("Saved data could not be loaded.");
+
+    }
+
+  }
+
+}
+
+
+
+/* =================================
+   UPDATE STATS
+================================= */
+
+function updateStats() {
+
+  const total =
+    leads.length;
+
+
+  const hot =
+    leads.filter(
+      lead => lead.status === "HOT"
+    ).length;
+
+
+  const warm =
+    leads.filter(
+      lead => lead.status === "WARM"
+    ).length;
+
+
+  const revenue =
+    leads.reduce(
+      (sum, lead) =>
+        sum + Number(lead.revenue || 0),
+      0
+    );
+
+
+  document.getElementById("totalLeads")
+    .textContent = total;
+
+
+  document.getElementById("hotLeads")
+    .textContent = hot;
+
+
+  document.getElementById("warmLeads")
+    .textContent = warm;
+
+
+  document.getElementById("revenue")
+    .textContent =
+      "$" + revenue.toLocaleString();
+
+
+  document.getElementById("newLeads")
+    .textContent = total;
+
+
+  document.getElementById("followUpLeads")
+    .textContent =
+      leads.filter(
+        lead => lead.status !== "COLD"
+      ).length;
+
+}
+
+
+
+/* =================================
+   RENDER LEADS
+================================= */
+
 function renderLeads(list) {
 
   const container =
     document.getElementById("leadList");
+
 
   if (list.length === 0) {
 
@@ -261,73 +732,96 @@ function renderLeads(list) {
     `;
 
     return;
+
   }
 
 
-  container.innerHTML = list.map(lead => {
+  container.innerHTML = list.map(
+    (lead, index) => {
 
-    const statusClass =
-      lead.status.toLowerCase();
+      const statusClass =
+        lead.status.toLowerCase();
 
-    return `
 
-      <div class="lead-row">
+      return `
 
-        <div>
-          <div class="lead-name">
-            ${lead.name}
+        <div class="lead-row">
+
+          <div>
+
+            <div class="lead-name">
+              ${escapeHTML(lead.name)}
+            </div>
+
+            <div class="lead-business">
+              ${escapeHTML(lead.business)}
+            </div>
+
           </div>
 
-          <div class="lead-business">
-            ${lead.business}
+
+          <div>
+
+            <span class="badge ${statusClass}">
+              ${lead.status}
+            </span>
+
           </div>
+
+
+          <div>
+
+            <span class="score">
+              ${lead.score}%
+            </span>
+
+            <small>
+              recovery
+            </small>
+
+          </div>
+
+
+          <div>
+
+            <span class="revenue">
+              $${Number(lead.revenue || 0).toLocaleString()}
+            </span>
+
+          </div>
+
+
+          <button
+            class="action-btn"
+            onclick="generateFollowUp(${index})">
+
+            AI Follow-up
+
+          </button>
+
         </div>
 
+      `;
 
-        <div>
-          <span class="badge ${statusClass}">
-            ${lead.status}
-          </span>
-        </div>
-
-
-        <div>
-          <span class="score">
-            ${lead.score}%
-          </span>
-          <small> recovery</small>
-        </div>
-
-
-        <div>
-          <span class="revenue">
-            $${lead.revenue.toLocaleString()}
-          </span>
-        </div>
-
-
-        <button
-          class="action-btn"
-          onclick="generateFollowUp('${lead.name}', '${lead.status}')">
-
-          AI Follow-up
-
-        </button>
-
-      </div>
-
-    `;
-
-  }).join("");
+    }
+  ).join("");
 
 }
 
+
+
+/* =================================
+   FILTER
+================================= */
 
 function filterLeads(status, button) {
 
   document
     .querySelectorAll(".filter-box button")
-    .forEach(btn => btn.classList.remove("active"));
+    .forEach(
+      btn => btn.classList.remove("active")
+    );
+
 
   button.classList.add("active");
 
@@ -336,52 +830,152 @@ function filterLeads(status, button) {
 
     renderLeads(leads);
 
-  } else {
-
-    const filtered =
-      leads.filter(
-        lead => lead.status === status
-      );
-
-    renderLeads(filtered);
-
-  }
-
-}
-
-
-function generateFollowUp(name, status) {
-
-  let message = "";
-
-  if (status === "HOT") {
-
-    message =
-      `Hi ${name} 👋 We noticed you're interested. Would you like us to help you get started today?`;
-
-  }
-
-  else if (status === "WARM") {
-
-    message =
-      `Hi ${name} 👋 Just checking in regarding your earlier enquiry. We'd be happy to help you find the best option. Would you like to continue?`;
-
   }
 
   else {
 
-    message =
-      `Hi ${name}, thank you for considering us. If your requirements change in the future, we'd be happy to help.`;
+    renderLeads(
+      leads.filter(
+        lead => lead.status === status
+      )
+    );
 
   }
-
-
-  alert("🤖 AI Follow-up\n\n" + message);
 
 }
 
 
+
+/* =================================
+   AI FOLLOW-UP
+================================= */
+
+function generateFollowUp(index) {
+
+  const lead =
+    leads[index];
+
+
+  if (!lead) return;
+
+
+  let message = "";
+
+
+  if (lead.status === "HOT") {
+
+    message =
+      `Hi ${lead.name} 👋 We noticed you're interested. Would you like us to help you get started today?`;
+
+  }
+
+
+  else if (lead.status === "WARM") {
+
+    message =
+      `Hi ${lead.name} 👋 Just checking in regarding your earlier enquiry. We'd be happy to help you find the best option. Would you like to continue?`;
+
+  }
+
+
+  else {
+
+    message =
+      `Hi ${lead.name}, thank you for considering us. If your requirements change in the future, we'd be happy to help.`;
+
+  }
+
+
+  const box =
+    document.getElementById("messageBox");
+
+
+  box.style.display = "block";
+
+
+  box.innerHTML = `
+
+    <strong>🤖 AI Follow-up for ${escapeHTML(lead.name)}</strong>
+
+    <br><br>
+
+    ${escapeHTML(message)}
+
+    <br>
+
+    <button
+      class="copy-btn"
+      onclick="copyMessage()">
+
+      📋 Copy Follow-up
+
+    </button>
+
+  `;
+
+
+  window.currentMessage =
+    message;
+
+}
+
+
+
+/* =================================
+   COPY FOLLOW-UP
+================================= */
+
+function copyMessage() {
+
+  if (!window.currentMessage) return;
+
+
+  navigator.clipboard
+    .writeText(window.currentMessage)
+    .then(() => {
+
+      alert("✅ Follow-up copied!");
+
+    })
+
+    .catch(() => {
+
+      alert("Please copy the message manually.");
+
+    });
+
+}
+
+
+
+/* =================================
+   SECURITY
+================================= */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =================================
+   START APP
+================================= */
+
+loadLeads();
+
+updateStats();
+
 renderLeads(leads);
 
-</script></body>
+</script>
+
+</body>
  </html>
